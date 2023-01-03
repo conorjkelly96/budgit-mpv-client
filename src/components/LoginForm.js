@@ -12,17 +12,59 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useForm } from "react-hook-form";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+
+import { useAuth } from "../contexts/AppProvider";
+import { LOGIN_USER } from "../mutations";
 
 const theme = createTheme();
 
 export const LoginForm = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
+  const { setIsLoggedIn, setUser } = useAuth();
+  const [executeLogin, { loading, error }] = useMutation(LOGIN_USER);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const navigate = useNavigate();
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const data = new FormData(event.currentTarget);
+  //   console.log({
+  //     email: data.get("email"),
+  //     password: data.get("password"),
+  //   });
+  // };
+
+  const onSubmit = async ({ email, password }) => {
+    const { data } = await executeLogin({
+      variables: {
+        input: {
+          email: email.toLowerCase().trim(),
+          password,
+        },
+      },
     });
+
+    if (data) {
+      const { token, user } = data.loginStaff;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      setIsLoggedIn(true);
+      setUser({
+        email: user.email,
+        password: user.password,
+      });
+
+      navigate("/", { replace: true });
+    }
   };
 
   return (
@@ -40,28 +82,36 @@ export const LoginForm = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign in
+          Log in
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 1 }}
+        >
           <TextField
             margin="normal"
-            required
-            fullWidth
             id="email"
-            label="Email Address"
+            label="Email"
             name="email"
-            autoComplete="email"
-            autoFocus
+            variant="outlined"
+            fullWidth
+            {...register("email", { required: true })}
+            error={!!errors.email}
+            disabled={loading}
           />
           <TextField
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
             type="password"
+            margin="normal"
             id="password"
-            autoComplete="current-password"
+            label="Password"
+            name="password"
+            variant="outlined"
+            fullWidth
+            {...register("password", { required: true })}
+            error={!!errors.password}
+            disabled={loading}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -73,7 +123,7 @@ export const LoginForm = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Log In
           </Button>
           <Grid container>
             <Grid item xs>
