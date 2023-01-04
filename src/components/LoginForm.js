@@ -2,7 +2,6 @@ import * as React from "react";
 import { useMutation } from "@apollo/client";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -43,6 +42,7 @@ export const LoginForm = () => {
   // };
 
   const onSubmit = async ({ email, password }) => {
+    console.log(email, password);
     const { data } = await executeLogin({
       variables: {
         input: {
@@ -53,7 +53,9 @@ export const LoginForm = () => {
     });
 
     if (data) {
-      const { token, user } = data.loginStaff;
+      const { token, user } = data.loginUser;
+
+      console.log(user);
 
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
