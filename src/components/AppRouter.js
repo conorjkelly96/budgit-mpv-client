@@ -10,9 +10,11 @@ import { LoginPage } from "../pages/LoginPage";
 // import { DashboardPage } from "../pages/DashboardPage";
 
 import { useAuth } from "../contexts/AppProvider";
+import { DashboardPage } from "../pages/Dashboard";
 
 export const AppRouter = () => {
   const { isLoggedIn, user } = useAuth();
+  console.log(isLoggedIn);
 
   return (
     <>
@@ -28,6 +30,8 @@ export const AppRouter = () => {
             {isLoggedIn && (
               <>
                 {/* Dashboard Page - view all budgets */}
+                <Route path="/dashboard" element={<DashboardPage />} />
+
                 {/* Create Budget Page */}
                 {/* Edit Budget Page */}
               </>

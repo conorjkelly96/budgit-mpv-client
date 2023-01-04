@@ -18,8 +18,6 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AppProvider";
 import { LOGIN_USER } from "../mutations";
 
-const theme = createTheme();
-
 export const LoginForm = () => {
   const { setIsLoggedIn, setUser } = useAuth();
   const [executeLogin, { loading, error }] = useMutation(LOGIN_USER);
@@ -55,18 +53,21 @@ export const LoginForm = () => {
     if (data) {
       const { token, user } = data.loginUser;
 
-      console.log(user);
-
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
+      console.log(user);
+
       setIsLoggedIn(true);
       setUser({
+        id: user.id,
+        firstName: user.username,
         email: user.email,
-        password: user.password,
+        firstName: user.firstName,
+        lastName: user.lastName,
       });
 
-      navigate("/", { replace: true });
+      navigate("/dashboard", { replace: true });
     }
   };
 
