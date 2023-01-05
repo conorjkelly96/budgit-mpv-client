@@ -17,6 +17,7 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../contexts/AppProvider";
 import { LOGIN_USER } from "../mutations";
+import { loginForm, postButton } from "../styles";
 
 export const LoginForm = () => {
   const { setIsLoggedIn, setUser } = useAuth();
@@ -121,6 +122,16 @@ export const LoginForm = () => {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+          {error && (
+            <Typography
+              variant="subtitle2"
+              gutterBottom
+              component="div"
+              sx={loginForm.errorContainer}
+            >
+              Failed to login, please enter valid email address and/or password.
+            </Typography>
+          )}
           <Button
             type="submit"
             fullWidth
