@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import { SIGNUP_USER } from "../mutations";
+import { CREATE_BUDGET } from "../mutations";
 import { Avatar, Button, Container, CssBaseline, Grid } from "@mui/material";
 
 export const CreateBudgetForm = () => {
@@ -59,13 +59,12 @@ export const CreateBudgetForm = () => {
             subscriptions,
             holidaycost,
             savings,
-            enjoymentfund,
           },
         },
       });
 
       if (data) {
-        navigate("/login", { replace: true });
+        navigate("/dashboard", { replace: true });
       }
     } catch (err) {
       console.log(err);
@@ -89,36 +88,41 @@ export const CreateBudgetForm = () => {
         <Typography component="h1" variant="h5">
           Create Your Budget
         </Typography>
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ mt: 3 }}
+        >
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                required
                 fullWidth
                 id="name"
                 label="Name"
                 name="name"
                 autoComplete="name"
-                {...register("name", { required: false })}
+                {...register("name", { required: true })}
                 error={!!errors.name}
                 disabled={loading}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                required
+                type="number"
                 fullWidth
                 id="salary"
                 label="Salary"
                 name="salary"
                 autoComplete="salary"
-                {...register("salary", { required: false })}
+                {...register("salary", { required: true })}
                 error={!!errors.salary}
                 disabled={loading}
               />
             </Grid>{" "}
             <Grid item xs={12}>
               <TextField
+                type="number"
                 fullWidth
                 id="other"
                 label="Other"
@@ -131,6 +135,7 @@ export const CreateBudgetForm = () => {
             </Grid>{" "}
             <Grid item xs={12}>
               <TextField
+                type="number"
                 fullWidth
                 id="rentmortgage"
                 label="Rent / Mortgage (Monthly)"
@@ -143,6 +148,7 @@ export const CreateBudgetForm = () => {
             </Grid>{" "}
             <Grid item xs={12}>
               <TextField
+                type="number"
                 fullWidth
                 id="gym"
                 label="Gym"
@@ -155,6 +161,7 @@ export const CreateBudgetForm = () => {
             </Grid>{" "}
             <Grid item xs={12}>
               <TextField
+                type="number"
                 fullWidth
                 id="groceries"
                 label="Groceries"
@@ -167,6 +174,7 @@ export const CreateBudgetForm = () => {
             </Grid>{" "}
             <Grid item xs={12}>
               <TextField
+                type="number"
                 fullWidth
                 id="housebills"
                 label="Utilities"
@@ -179,6 +187,7 @@ export const CreateBudgetForm = () => {
             </Grid>{" "}
             <Grid item xs={12}>
               <TextField
+                type="number"
                 fullWidth
                 id="creditcard"
                 label="Credit Card Bill"
@@ -191,6 +200,7 @@ export const CreateBudgetForm = () => {
             </Grid>{" "}
             <Grid item xs={12}>
               <TextField
+                type="number"
                 fullWidth
                 id="phone"
                 label="Phone Bill(s)"
@@ -203,6 +213,7 @@ export const CreateBudgetForm = () => {
             </Grid>{" "}
             <Grid item xs={12}>
               <TextField
+                type="number"
                 fullWidth
                 id="subscriptions"
                 label="Subscriptions"
@@ -215,6 +226,7 @@ export const CreateBudgetForm = () => {
             </Grid>{" "}
             <Grid item xs={12}>
               <TextField
+                type="number"
                 fullWidth
                 id="holidaycost"
                 label="Holiday Savings"
@@ -227,6 +239,7 @@ export const CreateBudgetForm = () => {
             </Grid>{" "}
             <Grid item xs={12}>
               <TextField
+                type="number"
                 fullWidth
                 id="savings"
                 label="Savings"
@@ -239,6 +252,7 @@ export const CreateBudgetForm = () => {
             </Grid>{" "}
             <Grid item xs={12}>
               <TextField
+                type="number"
                 fullWidth
                 id="enjoymentfund"
                 label="You Have this month to enjoy:"
@@ -256,15 +270,8 @@ export const CreateBudgetForm = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign Up
+            Create Budget
           </Button>
-          <Grid container justifyContent="flex-end">
-            <Grid item>
-              <Link href="#" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
     </Container>
