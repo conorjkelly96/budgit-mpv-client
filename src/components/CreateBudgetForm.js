@@ -47,7 +47,7 @@ export const CreateBudgetForm = () => {
         variables: {
           input: {
             name,
-            salary: parseFloat(salary),,
+            salary: parseFloat(salary),
             other: parseFloat(other),
             rentmortgage: parseFloat(rentmortgage),
             gym: parseFloat(gym),
