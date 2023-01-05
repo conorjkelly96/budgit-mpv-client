@@ -2,17 +2,15 @@ import { useRef, useState } from "react";
 import { useMutation } from "@apollo/client";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
-import Paper from "@mui/material/Paper";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import ErrorIcon from "@mui/icons-material/Error";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { SIGNUP_USER } from "../mutations";
 import { loginForm, postButton } from "../styles";
-import { Divider, FormControl, InputLabel, Select } from "@mui/material";
+import { Avatar, Button, Container, CssBaseline } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
 export const CreateBudgetForm = () => {
@@ -33,21 +31,37 @@ export const CreateBudgetForm = () => {
   const navigate = useNavigate();
 
   const onSubmit = async ({
-    firstName,
-    lastName,
-    username,
-    email,
-    password,
+    name,
+    salary,
+    other,
+    rentmortgage,
+    gym,
+    groceries,
+    housebills,
+    creditcard,
+    phone,
+    subscriptions,
+    holidaycost,
+    savings,
+    enjoymentfund,
   }) => {
     try {
       const { data } = await executeSignUp({
         variables: {
           input: {
-            firstName: firstName.toLowerCase().trim(),
-            lastName: lastName.toLowerCase().trim(),
-            username: username.toLowerCase().trim(),
-            email: email.toLowerCase().trim(),
-            password,
+            name,
+            salary,
+            other,
+            rentmortgage,
+            gym,
+            groceries,
+            housebills,
+            creditcard,
+            phone,
+            subscriptions,
+            holidaycost,
+            savings,
+            enjoymentfund,
           },
         },
       });
@@ -83,138 +97,84 @@ export const CreateBudgetForm = () => {
   };
 
   return (
-    <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
       <Box
         sx={{
-          my: 8,
-          mx: 4,
+          marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
         }}
       >
-        <Typography
-          variant="h4"
-          gutterBottom
-          component="h1"
-          align="center"
-          sx={styles.header}
-        >
-          Student Sign Up
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Sign up
         </Typography>
-        <Divider />
-        <Box
-          component="form"
-          sx={styles.form}
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <TextField
-            margin="normal"
-            id="firstName"
-            label="First Name"
-            name="firstName"
-            variant="outlined"
-            fullWidth
-            {...register("firstName", { required: true })}
-            error={!!errors.firstName}
-            disabled={loading}
-          />
-          <TextField
-            margin="normal"
-            id="lastName"
-            label="Last Name"
-            name="lastName"
-            variant="outlined"
-            fullWidth
-            {...register("lastName", { required: true })}
-            error={!!errors.lastName}
-            disabled={loading}
-          />
-          <TextField
-            margin="normal"
-            id="username"
-            label="Username"
-            name="username"
-            variant="outlined"
-            fullWidth
-            {...register("username", { required: true })}
-            error={!!errors.username}
-            disabled={loading}
-          />
-          <TextField
-            margin="normal"
-            id="email"
-            label="Email"
-            name="email"
-            variant="outlined"
-            fullWidth
-            {...register("email", { required: true })}
-            error={!!errors.email}
-            disabled={loading}
-          />
-          <TextField
-            type="password"
-            margin="normal"
-            id="password"
-            label="Password"
-            name="password"
-            variant="outlined"
-            fullWidth
-            {...register("password", { required: true })}
-            error={!!errors.password}
-            disabled={loading}
-          />
-          <TextField
-            type="password"
-            margin="normal"
-            id="confirmPassword"
-            label="Confirm Password"
-            name="confirmPassword"
-            variant="outlined"
-            fullWidth
-            {...register("confirmPassword", {
-              required: true,
-              validate: (value) => getValues("password") === value,
-            })}
-            error={!!errors.confirmPassword}
-            disabled={loading}
-            helperText={errors.confirmPassword ? "Passwords do not match" : ""}
-          />
-
-          <LoadingButton
-            loading={loading}
-            loadingIndicator="Loading..."
-            variant="contained"
-            fullWidth
+        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                autoComplete="given-name"
+                name="firstName"
+                required
+                fullWidth
+                id="firstName"
+                label="First Name"
+                autoFocus
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                fullWidth
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="family-name"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="new-password"
+              />
+            </Grid>
+          </Grid>
+          <Button
             type="submit"
-            sx={loading ? styles.loadingButton : { ...postButton, m: 2 }}
-            startIcon={error && <ErrorIcon />}
-            color={error ? "error" : "primary"}
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
           >
             Sign Up
-          </LoadingButton>
-
-          <Link
-            component={RouterLink}
-            to="/login"
-            variant="body2"
-            underline="none"
-          >
-            Already have an account? Login
-          </Link>
-          {error && (
-            <Typography
-              variant="subtitle2"
-              gutterBottom
-              component="div"
-              sx={styles.errorContainer}
-            >
-              Failed to sign up, please make sure you enter the correct details
-              or try again later.
-            </Typography>
-          )}
+          </Button>
+          <Grid container justifyContent="flex-end">
+            <Grid item>
+              <Link href="#" variant="body2">
+                Already have an account? Sign in
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
-    </Grid>
+    </Container>
   );
 };
