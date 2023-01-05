@@ -11,6 +11,7 @@ import { SignupPage } from "../pages/SignupPage";
 
 import { useAuth } from "../contexts/AppProvider";
 import { DashboardPage } from "../pages/Dashboard";
+import { CreateBudget } from "../pages/CreateBudget";
 
 export const AppRouter = () => {
   const { isLoggedIn, user } = useAuth();
@@ -29,10 +30,9 @@ export const AppRouter = () => {
 
             {isLoggedIn && (
               <>
-                {/* Dashboard Page - view all budgets */}
                 <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/create-budget" element={<CreateBudget />} />
 
-                {/* Create Budget Page */}
                 {/* Edit Budget Page */}
               </>
             )}
