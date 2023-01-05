@@ -67,7 +67,7 @@ export const Navbar = () => {
         <Box component="a" href="/" sx={styles.logo}>
           {/* WARNING: THE LOGO IS UNSTABLE */}
           <img
-            src="/images/unified-public-nav.png"
+            src="../images/budgitlogo.png"
             alt="Unified Logo"
             style={{
               width: "140px",

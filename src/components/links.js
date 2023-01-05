@@ -15,15 +15,11 @@ export const publicLinks = [
 
 export const privateLinks = [
   {
-    label: "Marketplace",
-    path: "marketplace",
+    label: "Create Budget",
+    path: "create-budget",
   },
   {
-    label: "Jobs",
-    path: "jobs",
-  },
-  {
-    label: "Forum Board",
-    path: "forum",
+    label: "View Budgets",
+    path: "view-budgets",
   },
 ];
