@@ -31,15 +31,6 @@ export const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const data = new FormData(event.currentTarget);
-  //   console.log({
-  //     email: data.get("email"),
-  //     password: data.get("password"),
-  //   });
-  // };
-
   const onSubmit = async ({ email, password }) => {
     console.log(email, password);
     const { data } = await executeLogin({
