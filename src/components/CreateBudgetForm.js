@@ -41,24 +41,23 @@ export const CreateBudgetForm = () => {
     subscriptions,
     holidaycost,
     savings,
-    enjoymentfund,
   }) => {
     try {
       const { data } = await executeCreateBudget({
         variables: {
           input: {
             name,
-            salary,
-            other,
-            rentmortgage,
-            gym,
-            groceries,
-            housebills,
-            creditcard,
-            phone,
-            subscriptions,
-            holidaycost,
-            savings,
+            salary: parseFloat(salary),,
+            other: parseFloat(other),
+            rentmortgage: parseFloat(rentmortgage),
+            gym: parseFloat(gym),
+            groceries: parseFloat(groceries),
+            housebills: parseFloat(housebills),
+            creditcard: parseFloat(creditcard),
+            phone: parseFloat(phone),
+            subscriptions: parseFloat(subscriptions),
+            holidaycost: parseFloat(holidaycost),
+            savings: parseFloat(savings),
           },
         },
       });
@@ -115,7 +114,13 @@ export const CreateBudgetForm = () => {
                 label="Salary"
                 name="salary"
                 autoComplete="salary"
-                {...register("salary", { required: true })}
+                {...register("salary", {
+                  required: true,
+                  validate: (value) => {
+                    const regex = new RegExp(/^\d*\.?\d*$/);
+                    return regex.test(value);
+                  },
+                })}
                 error={!!errors.salary}
                 disabled={loading}
               />
