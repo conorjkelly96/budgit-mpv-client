@@ -15,7 +15,6 @@ import { CreateBudget } from "../pages/CreateBudget";
 
 export const AppRouter = () => {
   const { isLoggedIn, user } = useAuth();
-  console.log(isLoggedIn);
 
   return (
     <>
