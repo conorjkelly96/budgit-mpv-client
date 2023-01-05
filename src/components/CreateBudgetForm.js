@@ -9,12 +9,10 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { SIGNUP_USER } from "../mutations";
-import { loginForm, postButton } from "../styles";
-import { Avatar, Button, Container, CssBaseline } from "@mui/material";
-import { LoadingButton } from "@mui/lab";
+import { Avatar, Button, Container, CssBaseline, Grid } from "@mui/material";
 
 export const CreateBudgetForm = () => {
-  const [executeSignUp, { loading, error }] = useMutation(SIGNUP_USER);
+  const [executeCreateBudget, { loading, error }] = useMutation(CREATE_BUDGET);
 
   const {
     register,
@@ -46,7 +44,7 @@ export const CreateBudgetForm = () => {
     enjoymentfund,
   }) => {
     try {
-      const { data } = await executeSignUp({
+      const { data } = await executeCreateBudget({
         variables: {
           input: {
             name,
@@ -74,28 +72,6 @@ export const CreateBudgetForm = () => {
     }
   };
 
-  const styles = {
-    container: {
-      backgroundColor: "#fff",
-    },
-    header: {
-      paddingTop: 2,
-      paddingBottom: 2,
-    },
-    form: {
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: 4,
-    },
-    loadingButton: { marginTop: 3, marginBottom: 2 },
-    errorContainer: {
-      marginTop: 2,
-      color: "#d32f2f",
-      textAlign: "center",
-    },
-  };
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -111,52 +87,168 @@ export const CreateBudgetForm = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Create Your Budget
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="given-name"
-                name="firstName"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="family-name"
+                id="name"
+                label="Name"
+                name="name"
+                autoComplete="name"
+                {...register("name", { required: false })}
+                error={!!errors.name}
+                disabled={loading}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="salary"
+                label="Salary"
+                name="salary"
+                autoComplete="salary"
+                {...register("salary", { required: false })}
+                error={!!errors.salary}
+                disabled={loading}
               />
-            </Grid>
+            </Grid>{" "}
             <Grid item xs={12}>
               <TextField
-                required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
+                id="other"
+                label="Other"
+                name="other"
+                autoComplete="other"
+                {...register("other", { required: false })}
+                error={!!errors.other}
+                disabled={loading}
               />
-            </Grid>
+            </Grid>{" "}
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="rentmortgage"
+                label="Rent / Mortgage (Monthly)"
+                name="rentmortgage"
+                autoComplete="rentmortgage"
+                {...register("rentmortgage", { required: false })}
+                error={!!errors.rentmortgage}
+                disabled={loading}
+              />
+            </Grid>{" "}
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="gym"
+                label="Gym"
+                name="gym"
+                autoComplete="gym"
+                {...register("gym", { required: false })}
+                error={!!errors.gym}
+                disabled={loading}
+              />
+            </Grid>{" "}
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="groceries"
+                label="Groceries"
+                name="groceries"
+                autoComplete="groceries"
+                {...register("groceries", { required: false })}
+                error={!!errors.groceries}
+                disabled={loading}
+              />
+            </Grid>{" "}
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="housebills"
+                label="Utilities"
+                name="housebills"
+                autoComplete="housebills"
+                {...register("housebills", { required: false })}
+                error={!!errors.housebills}
+                disabled={loading}
+              />
+            </Grid>{" "}
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="creditcard"
+                label="Credit Card Bill"
+                name="creditcard"
+                autoComplete="creditcard"
+                {...register("creditcard", { required: false })}
+                error={!!errors.creditcard}
+                disabled={loading}
+              />
+            </Grid>{" "}
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="phone"
+                label="Phone Bill(s)"
+                name="phone"
+                autoComplete="phone"
+                {...register("phone", { required: false })}
+                error={!!errors.phone}
+                disabled={loading}
+              />
+            </Grid>{" "}
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="subscriptions"
+                label="Subscriptions"
+                name="subscriptions"
+                autoComplete="subscriptions"
+                {...register("subscriptions", { required: false })}
+                error={!!errors.subscriptions}
+                disabled={loading}
+              />
+            </Grid>{" "}
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="holidaycost"
+                label="Holiday Savings"
+                name="holidaycost"
+                autoComplete="holidaycost"
+                {...register("holidaycost", { required: false })}
+                error={!!errors.holidaycost}
+                disabled={loading}
+              />
+            </Grid>{" "}
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="savings"
+                label="Savings"
+                name="savings"
+                autoComplete="savings"
+                {...register("savings", { required: false })}
+                error={!!errors.savings}
+                disabled={loading}
+              />
+            </Grid>{" "}
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                id="enjoymentfund"
+                label="You Have this month to enjoy:"
+                name="enjoymentfund"
+                autoComplete="enjoymentfund"
+                {...register("enjoymentfund", { required: false })}
+                error={!!errors.enjoymentfund}
+                disabled={loading}
+              />
+            </Grid>{" "}
           </Grid>
           <Button
             type="submit"

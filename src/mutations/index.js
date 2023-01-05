@@ -25,3 +25,14 @@ export const SIGNUP_USER = gql`
     }
   }
 `;
+
+export const CREATE_BUDGET = gql`
+  mutation Mutation($input: CreateBudgetInput!) {
+    createUserBudget(input: $input) {
+      user {
+        id
+      }
+      name
+    }
+  }
+`;
