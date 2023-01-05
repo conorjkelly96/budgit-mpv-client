@@ -6,7 +6,7 @@ import { Navbar } from "./Navbar";
 // import { Footer } from "./Footer";
 // import { HomePage } from "../pages/Home";
 import { LoginPage } from "../pages/LoginPage";
-// import { SignUpPage } from "../pages/SignUpPage";
+import { SignupPage } from "../pages/SignupPage";
 // import { DashboardPage } from "../pages/DashboardPage";
 
 import { useAuth } from "../contexts/AppProvider";
@@ -24,7 +24,7 @@ export const AppRouter = () => {
         <Box sx={{ minHeight: "75vh" }}>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
-            {/* <Route path="/sign-up" element={<SignUpPage />} /> */}
+            <Route path="/sign-up" element={<SignupPage />} />
             {/* <Route path="/" element={<HomePage />} /> */}
 
             {isLoggedIn && (

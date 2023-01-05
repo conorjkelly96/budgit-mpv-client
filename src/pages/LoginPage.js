@@ -2,7 +2,7 @@ import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 
-import { LoginFormImage } from "../components/LoginFormImage";
+import { LoginFormImage } from "../components/FormImage";
 import { LoginForm } from "../components/LoginForm";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
